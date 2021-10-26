@@ -6,7 +6,7 @@
 /*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 20:00:59 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/10/22 17:12:35 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/10/26 14:00:54 by johokyoun        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@
 # define ARG_ERR 1
 # define DUP_ERR 2
 
+# define TAKING 3
+# define EATING 4
+# define SLEEPING 5
+# define THINKING 6
+# define DEAD 7
+# define END 8
+
+
 typedef struct s_info {
     int i_philo;
     time_t die;
@@ -29,8 +37,8 @@ typedef struct s_info {
     time_t sleep;
     int time_eat;
     time_t start_time;
+    pthread_mutex_t print;
 
-    
 }       t_info;
 
 typedef struct s_fork
@@ -39,12 +47,16 @@ typedef struct s_fork
     int stat;
 }               t_fork;
 
-typedef struct s_philo{
+typedef struct s_philo
+{
     pthread_t   philo;
     int i;
     int count_eat;
+    int finish;
+    time_t  eat_time;
     t_fork  *left;
     t_fork  *right;
+    t_info  *info;
     
 }               t_philo;
 
