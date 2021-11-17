@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosopher.h                                      :+:      :+:    :+:   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 20:00:59 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/10/26 14:00:54 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/11/12 18:10:07 by johokyoun        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHER_H
-# define PHILOSOPHER_H
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
 
 # include <pthread.h>
 # include <unistd.h>
@@ -57,11 +57,13 @@ typedef struct s_philo
     t_fork  *left;
     t_fork  *right;
     t_info  *info;
-    
 }               t_philo;
 
 
 time_t  get_time(void);
 int print_error(int err_num);
+void	*philos_life(void *arg);
+int	print_msg(t_philo *p, int stat);
+
 
 #endif
