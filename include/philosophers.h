@@ -6,7 +6,7 @@
 /*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 20:00:59 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/11/18 16:42:48 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/11/25 16:09:41 by johokyoun        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int print_error(int err_num);
 void	*philos_life(void *arg);
 int	print_msg(t_philo *p, int stat);
 void	dead_or_alive(void *arg);
+void    ft_msleep(time_t ms);
 
 
 #endif

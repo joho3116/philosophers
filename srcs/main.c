@@ -6,7 +6,7 @@
 /*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 19:41:38 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/11/20 23:02:13 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/11/25 16:57:57 by johokyoun        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ int	end(t_philo *p, t_fork *f)
 
 t_fork	*init_fork(void)
 {
-	t_fork *fork;
+	t_fork *f;
 	int	i;
 
 	i = 0;
-	fork = ft_calloc(g_info.i_philo, sizeof(t_fork));
-	while (i< g_info.i_philo)
+	f = ft_calloc(g_info.i_philo, sizeof(t_fork));
+	while (i < g_info.i_philo)
 	{
-		pthread_mutex_init(&(fork[i].fork), NULL);
+		pthread_mutex_init(&(f[i].fork), NULL);
 		i++;
 	}
-	return (fork);
+	return (f);
 }
 
 t_philo	*init_philo(t_fork *f)
@@ -61,10 +61,7 @@ t_philo	*init_philo(t_fork *f)
 	while (i < g_info.i_philo)
 	{
 		p[i].i = i;
-		if (g_info.time_eat)
-			p[i].count_eat = g_info.time_eat;
-		else
-			p[i].count_eat = 0;
+		p[i].eat_time = g_info.start_time;
 		p[i].left = &f[i];
 		p[i].right = &f[(i + 1) % g_info.i_philo];
 		i++;
@@ -74,8 +71,6 @@ t_philo	*init_philo(t_fork *f)
 
 int	init_info(int argc, char **argv)
 {
-	t_info	*i;
-
 	if (!(argc == 5 || argc == 6))
 		return (0);
 	if ((g_info.i_philo = ft_atoi(argv[1])) < 2 ||
