@@ -6,7 +6,7 @@
 /*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 20:00:59 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/11/12 18:10:07 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/11/18 16:42:48 by johokyoun        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_info {
     time_t eat;
     time_t sleep;
     int time_eat;
+    int finish;
     time_t start_time;
     pthread_mutex_t print;
 
@@ -56,14 +57,15 @@ typedef struct s_philo
     time_t  eat_time;
     t_fork  *left;
     t_fork  *right;
-    t_info  *info;
 }               t_philo;
 
+t_info  g_info;
 
 time_t  get_time(void);
 int print_error(int err_num);
 void	*philos_life(void *arg);
 int	print_msg(t_philo *p, int stat);
+void	dead_or_alive(void *arg);
 
 
 #endif

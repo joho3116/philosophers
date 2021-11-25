@@ -6,7 +6,7 @@
 /*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:11:00 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/11/12 17:00:56 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/11/20 22:53:26 by johokyoun        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ time_t  get_time(void)
     struct timeval  tv;
 
     gettimeofday(&tv, NULL);
-    return (tv.tv_usec / 1000);
+    return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
