@@ -6,7 +6,7 @@
 /*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:11:00 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/11/20 22:53:26 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/11/30 19:44:23 by johokyoun        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,17 @@ time_t  get_time(void)
 
     gettimeofday(&tv, NULL);
     return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+void    ft_msleep(time_t ms)
+{
+    const   time_t  base = get_time();
+
+    while (1)
+    {
+        if (ms < get_time() - base)
+            return ;
+        usleep(100);
+    }
+    
 }
