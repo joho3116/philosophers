@@ -6,7 +6,7 @@
 /*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:59:34 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/11/30 20:21:25 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/12/05 19:07:46 by johokyoun        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static	int	end_status(void)
 	return (END);
 }
 
-static	int	dead_status(t_philo *p)
+int	dead_status(t_philo *p)
 {
 	g_info.finish = 1;
 	ft_putnbr_fd(get_time() - g_info.start_time, 1);
 	print_status(p, DEAD);
-	pthread_mutex_unlock((&g_info.print));
+	pthread_mutex_unlock(&g_info.print);
 	return (DEAD);
 }
 
@@ -39,7 +39,7 @@ void	print_status(t_philo *p, int stat)
 		ft_putendl_fd(" is eating.", 1);
 	else if (stat == SLEEPING)
 		ft_putendl_fd(" is sleeping.", 1);
-	else if (stat == THINKING)
+	else if (stat == TAKING)
 		ft_putendl_fd(" is thinking.", 1);
 	else if (stat == DEAD)
 		ft_putendl_fd(" is died.", 1);

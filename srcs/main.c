@@ -6,7 +6,7 @@
 /*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 19:41:38 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/11/30 20:33:23 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/12/05 19:06:08 by johokyoun        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ int	end(t_philo *p, t_fork *f)
 
 t_fork	*init_fork(void)
 {
-	t_fork *fork;
+	t_fork *f;
 	int	i;
 
 	i = 0;
-	if (!(fork = ft_calloc(g_info.i_philo, sizeof(t_fork))))
+	if (!(f = ft_calloc(g_info.i_philo, sizeof(t_fork))))
 		return (NULL);
 	while (i< g_info.i_philo)
 	{
-		pthread_mutex_init(&(fork[i].fork), NULL);
+		pthread_mutex_init(&(f[i].fork), NULL);
 		i++;
 	}
-	return (fork);
+	return (f);
 }
 
 t_philo	*init_philo(t_fork *f)

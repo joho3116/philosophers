@@ -6,7 +6,7 @@
 /*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 13:39:13 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/11/30 21:21:30 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/12/05 19:09:46 by johokyoun        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	eating_philo(t_philo *p)
 
 int	sleeping_philo(t_philo *p)
 {
-	time_t	start;
-
 	if (print_msg(p, SLEEPING) == DEAD)
 		return (DEAD);
 	ft_msleep(g_info.sleep);
@@ -72,9 +70,9 @@ void	*philos_life(void *arg)
 			return(0);
 		if (eating_philo(p) == DEAD)
 			return (0);
-		if (sleeping_philo(p) == DEAD || is_check(p))
+		if (sleeping_philo(p) == DEAD)
 			return (0);
-		if (thinking_philo(p) == DEAD || is_check(p))
+		if (thinking_philo(p) == DEAD)
 			return (0);
 	}
 	return (0);
