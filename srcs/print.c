@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hojo <hojo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:59:34 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/12/05 19:07:46 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/12/07 18:06:36 by hojo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/philosophers.h"
+#include "../include/philosophers.h"
 
-static	int	end_status(void)
+int	end_status(void)
 {
 	g_info.finish = 1;
 	ft_putendl_fd("All philosophers take the meals", 1);
@@ -39,7 +39,7 @@ void	print_status(t_philo *p, int stat)
 		ft_putendl_fd(" is eating.", 1);
 	else if (stat == SLEEPING)
 		ft_putendl_fd(" is sleeping.", 1);
-	else if (stat == TAKING)
+	else if (stat == THINKING)
 		ft_putendl_fd(" is thinking.", 1);
 	else if (stat == DEAD)
 		ft_putendl_fd(" is died.", 1);

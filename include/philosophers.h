@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hojo <hojo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 20:00:59 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/12/05 19:05:30 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/12/07 16:49:57 by hojo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,43 +29,41 @@
 # define DEAD 7
 # define END 8
 
-
-typedef struct s_info {
-    int i_philo;
-    time_t die;
-    time_t eat;
-    time_t sleep;
-    int time_eat;
-    int finish;
-    time_t start_time;
-    pthread_mutex_t print;
-
-}       t_info;
+typedef struct s_info{
+	int				i_philo;
+	time_t			die;
+	time_t			eat;
+	time_t			sleep;
+	int				time_eat;
+	int				finish;
+	time_t			start_time;
+	pthread_mutex_t	print;
+}	t_info;
 
 typedef struct s_fork
 {
-    pthread_mutex_t fork;
-}               t_fork;
+	pthread_mutex_t	fork;
+}				t_fork;
 
 typedef struct s_philo
 {
-    pthread_t   philo;
-    int i;
-    int count_eat;
-    time_t  eat_time;
-    t_fork  *left;
-    t_fork  *right;
-}               t_philo;
+	pthread_t	philo;
+	int			i;
+	int			count_eat;
+	time_t		eat_time;
+	t_fork		*left;
+	t_fork		*right;
+}	t_philo;
 
-t_info  g_info;
+t_info	g_info;
 
-time_t  get_time(void);
-int print_error(int err_num);
+time_t	get_time(void);
+int		print_error(int err_num);
 void	*philos_life(void *arg);
-int	print_msg(t_philo *p, int stat);
+int		print_msg(t_philo *p, int stat);
 void	dead_or_alive(void *arg);
-void    ft_msleep(time_t ms);
+void	ft_msleep(time_t ms);
 void	print_status(t_philo *p, int stat);
-int	is_check(t_philo *p);
+int		is_check(t_philo *p);
 
 #endif

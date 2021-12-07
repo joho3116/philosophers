@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   life.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hojo <hojo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 13:39:13 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/12/05 19:09:46 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/12/07 17:56:09 by hojo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/philosophers.h"
-
+#include "../include/philosophers.h"
 
 int	drop_forks(t_philo *p, int stat)
 {
@@ -30,16 +29,17 @@ int	take_forks(t_philo *p)
 		return (drop_forks(p, DEAD));
 	return (1);
 }
+
 int	eating_philo(t_philo *p)
 {
 	if (take_forks(p) == DEAD)
 		return (DEAD);
 	p->eat_time = get_time();
 	if (print_msg(p, EATING) == DEAD)
-		return(drop_forks(p, DEAD));
+		return (drop_forks(p, DEAD));
 	p->count_eat++;
 	ft_msleep(g_info.eat);
-	return (drop_forks(p, TAKING));
+	return (drop_forks(p, EATING));
 }
 
 int	sleeping_philo(t_philo *p)
@@ -47,13 +47,6 @@ int	sleeping_philo(t_philo *p)
 	if (print_msg(p, SLEEPING) == DEAD)
 		return (DEAD);
 	ft_msleep(g_info.sleep);
-	return (0);
-}
-
-int	thinking_philo(t_philo *p)
-{
-	if (print_msg(p, THINKING) == DEAD)
-		return (DEAD);
 	return (0);
 }
 
@@ -67,12 +60,12 @@ void	*philos_life(void *arg)
 	while (1)
 	{
 		if (g_info.finish)
-			return(0);
+			return (0);
 		if (eating_philo(p) == DEAD)
 			return (0);
 		if (sleeping_philo(p) == DEAD)
 			return (0);
-		if (thinking_philo(p) == DEAD)
+		if (print_msg(p, THINKING) == DEAD)
 			return (0);
 	}
 	return (0);

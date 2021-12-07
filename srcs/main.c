@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hojo <hojo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 19:41:38 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/12/05 19:06:08 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/12/07 16:24:24 by hojo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,16 @@ int	end(t_philo *p, t_fork *f)
 	return (0);
 }
 
-// 구조체들 초기화 단계
-
 t_fork	*init_fork(void)
 {
-	t_fork *f;
-	int	i;
+	t_fork	*f;
+	int		i;
 
 	i = 0;
-	if (!(f = ft_calloc(g_info.i_philo, sizeof(t_fork))))
+	f = ft_calloc(g_info.i_philo, sizeof(t_fork));
+	if (f == NULL)
 		return (NULL);
-	while (i< g_info.i_philo)
+	while (i < g_info.i_philo)
 	{
 		pthread_mutex_init(&(f[i].fork), NULL);
 		i++;
@@ -59,11 +58,12 @@ t_fork	*init_fork(void)
 
 t_philo	*init_philo(t_fork *f)
 {
-	t_philo *p;
-	int i;
+	t_philo	*p;
+	int		i;
 
 	i = 0;
-	if (!(p = ft_calloc(g_info.i_philo, sizeof(t_philo))))
+	p = ft_calloc(g_info.i_philo, sizeof(t_philo));
+	if (p == NULL)
 		return (NULL);
 	while (i < g_info.i_philo)
 	{
@@ -81,14 +81,17 @@ int	init_info(int argc, char **argv)
 {
 	if (!(argc == 5 || argc == 6))
 		return (0);
-	if ((g_info.i_philo = ft_atoi(argv[1])) < 2 ||
-	(g_info.die = ft_atoi(argv[2])) <= 0 ||
-	(g_info.eat = ft_atoi(argv[3])) <= 0 ||
-	(g_info.sleep = ft_atoi(argv[4])) <= 0)
+	g_info.i_philo = ft_atoi(argv[1]);
+	g_info.die = ft_atoi(argv[2]);
+	g_info.eat = ft_atoi(argv[3]);
+	g_info.sleep = ft_atoi(argv[4]);
+	if (g_info.i_philo < 2 || g_info.die <= 0
+		|| g_info.eat <= 0 || g_info.sleep <= 0)
 		return (0);
 	if (argv[5])
 	{
-		if ((g_info.time_eat = ft_atoi(argv[5])) <= 0)
+		g_info.time_eat = ft_atoi(argv[5]);
+		if (g_info.time_eat <= 0)
 			return (0);
 	}
 	g_info.start_time = get_time();
@@ -97,11 +100,11 @@ int	init_info(int argc, char **argv)
 	return (1);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_philo *p;
+	t_philo	*p;
 	t_fork	*f;
-	int	i;
+	int		i;
 
 	if (!(init_info(argc, argv)))
 		return (print_error(ARG_ERR));

@@ -3,41 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johokyoun <johokyoun@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hojo <hojo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 20:18:24 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/11/30 21:19:26 by johokyoun        ###   ########.fr       */
+/*   Updated: 2021/12/07 18:00:50 by hojo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/philosophers.h"
-
-int	is_check(t_philo *p)
-{
-	int	i;
-
-	i = 0;
-	while (i < g_info.i_philo)
-	{
-		if (p[i].count_eat > g_info.time_eat)
-		{
-			print_msg(p, END);
-			return (END);
-		}
-		i++;
-	}
-	return (0);
-}
+#include "../include/philosophers.h"
 
 int	is_finish(int *is_finish)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < g_info.i_philo)
 	{
-		if (is_finish[i++] == 0)
+		if (is_finish[i] == 0)
 			return (0);
+		i++;
 	}
 	return (1);
 }
@@ -54,9 +38,9 @@ int	is_dead(t_philo *p)
 
 void	dead_or_alive(void *arg)
 {
-	t_philo *p;
-	int	*finish;
-	int	i;
+	t_philo	*p;
+	int		*finish;
+	int		i;
 
 	p = arg;
 	finish = ft_calloc(g_info.i_philo, sizeof(int));
@@ -79,4 +63,3 @@ void	dead_or_alive(void *arg)
 	}
 	free(finish);
 }
-
