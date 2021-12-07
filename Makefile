@@ -6,7 +6,7 @@
 #    By: hojo <hojo@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 18:20:38 by hojo              #+#    #+#              #
-#    Updated: 2021/12/07 18:39:31 by hojo             ###   ########.fr        #
+#    Updated: 2021/12/07 19:21:25 by hojo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,33 +15,28 @@ SRCS	=	srcs/main.c \
 			srcs/check.c \
 			srcs/print.c \
 			srcs/util.c \
+			srcs/ft_atoi.c \
+			srcs/ft_calloc.c \
+			srcs/ft_put_fd.c
 
 OBJS	=	$(SRCS:.c=.o)
-HEADER	=	include/philosopher.h
-LIBFT	=	libft/libft.a
 
-NAME = philo_one
-RM = rm -rf
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+NAME	=	philo
+RM		=	rm -f
+CC		=	gcc
+CFLAGS	=	-Wall -Wextra -Werror
 
-all				: $(NAME)
+$(NAME) 	:	$(OBJS)
+			$(CC) $(CFLAGS) $^ -o $@
 
-$(LIBFT)		:
-	$(MAKE) -C ./libft
+all		:	$(NAME)
 
-%.o				: %.c $(HEADERS)
-	$(CC) $< $(HEADER_DIR) $(CFLAGS) -c -o $@
+clean		:
+			$(RM) $(OBJS)
 
-$(NAME)			: $(LIBFT) $(OBJS)
-	$(CC) $(OBJS) $(LIBS) $(LIBFT) $(HEADER_DIR) $(CFLAGS) -o $(NAME)
+fclean		:	clean
+			$(RM) $(NAME)
 
-clean			:
-	$(MAKE) -C ./libft clean
-	rm -rf $(OBJS)
+re		:	fclean all
 
-fclean			: clean
-	$(MAKE) -C ./libft fclean
-	rm -rf $(NAME)
-
-re				: fclean all
+.PHONY		:	all clean fclean re

@@ -6,11 +6,11 @@
 /*   By: hojo <hojo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 17:11:22 by hojo              #+#    #+#             */
-/*   Updated: 2020/11/04 00:18:13 by hojo             ###   ########.fr       */
+/*   Updated: 2021/12/07 19:18:04 by hojo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/philosophers.h"
 
 int	ft_isspace(char c)
 {

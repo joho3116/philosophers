@@ -6,7 +6,7 @@
 /*   By: hojo <hojo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 20:00:59 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/12/07 16:49:57 by hojo             ###   ########.fr       */
+/*   Updated: 2021/12/07 19:23:05 by hojo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,10 @@ void	dead_or_alive(void *arg);
 void	ft_msleep(time_t ms);
 void	print_status(t_philo *p, int stat);
 int		is_check(t_philo *p);
+void	ft_putendl_fd(char *s, int fd);
+void	ft_putnbr_fd(int n, int fd);
+int		ft_atoi(const char *str);
+void	*ft_calloc(size_t count, size_t size);
+void	ft_putstr_fd(char *s, int fd);
 
 #endif

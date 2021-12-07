@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_put_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hojo <hojo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:52:22 by hojo              #+#    #+#             */
-/*   Updated: 2020/10/21 16:58:15 by hojo             ###   ########.fr       */
+/*   Updated: 2021/12/07 19:22:01 by hojo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/philosophers.h"
 
 void	write_number(int n, int fd)
 {
@@ -20,6 +20,16 @@ void	write_number(int n, int fd)
 	if (n >= 10)
 		write_number(n / 10, fd);
 	write(fd, digit + (n % 10), 1);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
 
 void	ft_putnbr_fd(int n, int fd)
@@ -37,4 +47,19 @@ void	ft_putnbr_fd(int n, int fd)
 		n *= -1;
 	}
 	write_number(n, fd);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	if (fd < 0 || s == 0)
+		return ;
+	write(fd, s, ft_strlen(s));
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	if (s == 0 || fd < 0)
+		return ;
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
 }
