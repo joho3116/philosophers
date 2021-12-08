@@ -151,10 +151,10 @@ int pthread_create (pthread_t *thread, const pthread_attr_t *attr, void *(*start
 
 - 첫번째 매개변수 thread는 스레드가 성공적으로 생성되었을 때, 생성된 쓰레드를 식별하기 위해서 사용되는 쓰레드 식별자
 - 두번째 매개변수 attr는 스레드 특성을 지정하기 위해 사용하며, 기본 스레드 특성을 사용할 경우 NULL 사용
-  - 세번째 매개변수 start_routine은 분기시켜서 실행할 스레드 함수
+- 세번째 매개변수 start_routine은 분기시켜서 실행할 스레드 함수
 - 네번째 매개변수 arg는 위 start_routine 스레드 함수의 매개변수로 넘겨짐
 
-성공 시 0, 실패 시 에러코드 리턴 
+성공 시 0, 실패 시 에러코드 리턴
 
 ### pthread_detach
 
@@ -218,7 +218,7 @@ pthread_mutex_init으로 mutex를 위해 할당되었던 리소스를 해제
 ### pthread_mutex_lock
 
 ```c
-int	pthread_mutex_lock(pthread_mutex_t *mutex)	
+int	pthread_mutex_lock(pthread_mutex_t *mutex)
 ```
 
 생성된 mutex를 잠금
@@ -230,11 +230,11 @@ int	pthread_mutex_lock(pthread_mutex_t *mutex)
 ### pthread_mutex_unlock
 
 ```c
-int	pthread_mutex_unlock(pthread_mutex_t *mutex)	
+int	pthread_mutex_unlock(pthread_mutex_t *mutex)
 ```
 
 잠겨있는 mutex를 해제
 
 - 첫번째 인자는 mutex
 
-성공 시 0, 실패 시 에러코드 리턴 
+성공 시 0, 실패 시 에러코드 리턴

@@ -6,26 +6,26 @@
 /*   By: hojo <hojo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:59:34 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/12/07 18:06:36 by hojo             ###   ########.fr       */
+/*   Updated: 2021/12/08 16:39:45 by hojo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-int	end_status(void)
+int	end_status(t_philo *p)
 {
-	g_info.finish = 1;
+	p->info->finish = 1;
 	ft_putendl_fd("All philosophers take the meals", 1);
-	pthread_mutex_unlock(&g_info.print);
+	pthread_mutex_unlock(&(p->info->print));
 	return (END);
 }
 
 int	dead_status(t_philo *p)
 {
-	g_info.finish = 1;
-	ft_putnbr_fd(get_time() - g_info.start_time, 1);
+	p->info->finish = 1;
+	ft_putnbr_fd(get_time() - p->info->start_time, 1);
 	print_status(p, DEAD);
-	pthread_mutex_unlock(&g_info.print);
+	pthread_mutex_unlock(&(p->info->print));
 	return (DEAD);
 }
 
@@ -47,18 +47,18 @@ void	print_status(t_philo *p, int stat)
 
 int	print_msg(t_philo *p, int stat)
 {
-	pthread_mutex_lock((&g_info.print));
-	if (g_info.finish)
+	pthread_mutex_lock(&(p->info->print));
+	if (p->info->finish)
 	{
-		pthread_mutex_unlock(&g_info.print);
+		pthread_mutex_unlock(&(p->info->print));
 		return (DEAD);
 	}
-	else if (stat == END)
-		return (end_status());
+	if (stat == END)
+		return (end_status(p));
 	else if (stat == DEAD)
 		return (dead_status(p));
-	ft_putnbr_fd(get_time() - g_info.start_time, 1);
+	ft_putnbr_fd(get_time() - p->info->start_time, 1);
 	print_status(p, stat);
-	pthread_mutex_unlock((&g_info.print));
+	pthread_mutex_unlock(&(p->info->print));
 	return (stat);
 }

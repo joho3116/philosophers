@@ -6,7 +6,7 @@
 /*   By: hojo <hojo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 19:41:38 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/12/07 16:24:24 by hojo             ###   ########.fr       */
+/*   Updated: 2021/12/08 15:53:28 by hojo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	end(t_philo *p, t_fork *f)
 	i = 0;
 	if (p != NULL)
 	{
-		while (i < p->i)
+		while (i < p->info->i_philo)
 		{
 			pthread_join(p[i].philo, NULL);
 			i++;
@@ -29,7 +29,7 @@ int	end(t_philo *p, t_fork *f)
 	i = 0;
 	if (f != NULL)
 	{
-		while (i < p->i)
+		while (i < p->info->i_philo)
 		{
 			pthread_mutex_destroy(&f[i].fork);
 			i++;
@@ -39,16 +39,16 @@ int	end(t_philo *p, t_fork *f)
 	return (0);
 }
 
-t_fork	*init_fork(void)
+t_fork	*init_fork(t_info *info)
 {
 	t_fork	*f;
 	int		i;
 
 	i = 0;
-	f = ft_calloc(g_info.i_philo, sizeof(t_fork));
+	f = ft_calloc(info->i_philo, sizeof(t_fork));
 	if (f == NULL)
 		return (NULL);
-	while (i < g_info.i_philo)
+	while (i < info->i_philo)
 	{
 		pthread_mutex_init(&(f[i].fork), NULL);
 		i++;
@@ -56,68 +56,70 @@ t_fork	*init_fork(void)
 	return (f);
 }
 
-t_philo	*init_philo(t_fork *f)
+t_philo	*init_philo(t_fork *f, t_info *info)
 {
 	t_philo	*p;
 	int		i;
 
 	i = 0;
-	p = ft_calloc(g_info.i_philo, sizeof(t_philo));
+	p = ft_calloc(info->i_philo, sizeof(t_philo));
 	if (p == NULL)
 		return (NULL);
-	while (i < g_info.i_philo)
+	while (i < info->i_philo)
 	{
 		p[i].i = i;
-		p[i].eat_time = g_info.start_time;
+		p[i].eat_time = info->start_time;
 		p[i].left = &f[i];
-		if (i != (i + 1) % g_info.i_philo)
-			p[i].right = &f[(i + 1) % g_info.i_philo];
+		p[i].info = info;
+		if (i != (i + 1) % info->i_philo)
+			p[i].right = &f[(i + 1) % info->i_philo];
 		i++;
 	}
 	return (p);
 }
 
-int	init_info(int argc, char **argv)
+int	init_info(int argc, char **argv, t_info *info)
 {
 	if (!(argc == 5 || argc == 6))
 		return (0);
-	g_info.i_philo = ft_atoi(argv[1]);
-	g_info.die = ft_atoi(argv[2]);
-	g_info.eat = ft_atoi(argv[3]);
-	g_info.sleep = ft_atoi(argv[4]);
-	if (g_info.i_philo < 2 || g_info.die <= 0
-		|| g_info.eat <= 0 || g_info.sleep <= 0)
+	info->i_philo = ft_atoi(argv[1]);
+	info->die = ft_atoi(argv[2]);
+	info->eat = ft_atoi(argv[3]);
+	info->sleep = ft_atoi(argv[4]);
+	if (info->i_philo < 2 || info->die <= 0
+		|| info->eat <= 0 || info->sleep <= 0)
 		return (0);
 	if (argv[5])
 	{
-		g_info.time_eat = ft_atoi(argv[5]);
-		if (g_info.time_eat <= 0)
+		info->time_eat = ft_atoi(argv[5]);
+		if (info->time_eat <= 0)
 			return (0);
 	}
-	g_info.start_time = get_time();
-	g_info.finish = 0;
-	pthread_mutex_init(&(g_info.print), NULL);
+	info->start_time = get_time();
+	info->finish = 0;
+	pthread_mutex_init(&(info->print), NULL);
 	return (1);
 }
 
 int	main(int argc, char **argv)
 {
+	t_info	info;
 	t_philo	*p;
 	t_fork	*f;
 	int		i;
 
-	if (!(init_info(argc, argv)))
+	i = 0;
+	if (!init_info(argc, argv, &info))
 		return (print_error(ARG_ERR));
-	f = init_fork();
-	p = init_philo(f);
+	f = init_fork(&info);
+	p = init_philo(f, &info);
 	if (f == NULL || p == NULL)
 		return (end(p, f));
-	i = 0;
-	while (i < g_info.i_philo)
+	while (i < info.i_philo)
 	{
 		pthread_create(&(p[i].philo), NULL, philos_life, &p[i]);
 		i++;
 	}
-	dead_or_alive(p);
+	check_philo_alive(p, &info);
 	return (end(p, f));
 }

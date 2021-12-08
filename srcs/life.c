@@ -6,7 +6,7 @@
 /*   By: hojo <hojo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 13:39:13 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/12/07 17:56:09 by hojo             ###   ########.fr       */
+/*   Updated: 2021/12/08 15:53:51 by hojo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	eating_philo(t_philo *p)
 	if (print_msg(p, EATING) == DEAD)
 		return (drop_forks(p, DEAD));
 	p->count_eat++;
-	ft_msleep(g_info.eat);
+	ft_msleep(p->info->eat);
 	return (drop_forks(p, EATING));
 }
 
@@ -46,7 +46,7 @@ int	sleeping_philo(t_philo *p)
 {
 	if (print_msg(p, SLEEPING) == DEAD)
 		return (DEAD);
-	ft_msleep(g_info.sleep);
+	ft_msleep(p->info->sleep);
 	return (0);
 }
 
@@ -59,7 +59,7 @@ void	*philos_life(void *arg)
 		ft_msleep(100);
 	while (1)
 	{
-		if (g_info.finish)
+		if (p->info->finish)
 			return (0);
 		if (eating_philo(p) == DEAD)
 			return (0);

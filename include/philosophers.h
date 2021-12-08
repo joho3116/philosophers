@@ -6,7 +6,7 @@
 /*   By: hojo <hojo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 20:00:59 by johokyoun         #+#    #+#             */
-/*   Updated: 2021/12/07 19:23:05 by hojo             ###   ########.fr       */
+/*   Updated: 2021/12/08 15:48:47 by hojo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define PHILOSOPHERS_H
 
 # include <pthread.h>
+# include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <sys/time.h>
-# include "../libft/libft.h"
 
 # define ARG_ERR 1
 # define DUP_ERR 2
@@ -53,15 +53,14 @@ typedef struct s_philo
 	time_t		eat_time;
 	t_fork		*left;
 	t_fork		*right;
+	t_info		*info;
 }	t_philo;
-
-t_info	g_info;
 
 time_t	get_time(void);
 int		print_error(int err_num);
 void	*philos_life(void *arg);
 int		print_msg(t_philo *p, int stat);
-void	dead_or_alive(void *arg);
+void	check_philo_alive(t_philo *p, t_info *info);
 void	ft_msleep(time_t ms);
 void	print_status(t_philo *p, int stat);
 int		is_check(t_philo *p);
